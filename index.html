@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Paste a link, pick a style, and download a QR code that still scans." />
+    <title>QR</title>
+    <link rel="icon" href="data:," />
+    <script>
+      // Apply a saved theme before first paint. Without one, the system setting applies.
+      document.documentElement.dataset.theme = localStorage.theme ?? ""
+    </script>
+  </head>
+  <body>
+    <main>
+      <div class="group">
+        <header>
+          <label for="link">Link to encode</label>
+          <button id="theme" type="button" aria-label="Toggle dark mode">◐</button>
+        </header>
+        <input id="link" type="text" spellcheck="false" autocomplete="off" />
+      </div>
+
+      <div class="group">
+        <span id="style-label" class="label">Style</span>
+        <div id="styles" role="radiogroup" aria-labelledby="style-label"></div>
+      </div>
+
+      <details>
+        <summary>Customize</summary>
+        <div class="fields">
+          <label class="field wide">Dot shape <select id="dots"></select></label>
+          <label class="field wide">Eye shape <select id="corners"></select></label>
+          <label class="field">Start <input id="from" type="color" /></label>
+          <label class="field">End <input id="to" type="color" /></label>
+          <label class="field">Eyes <input id="eye" type="color" /></label>
+        </div>
+      </details>
+
+      <figure>
+        <div id="code" role="img"></div>
+        <figcaption id="caption"></figcaption>
+      </figure>
+
+      <div id="downloads">
+        <button type="button" data-ext="png">Download PNG</button>
+        <button type="button" data-ext="svg">SVG</button>
+      </div>
+    </main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

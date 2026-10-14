@@ -1,0 +1,296 @@
+:root {
+  color-scheme: light dark;
+  font: 16px/1.5 system-ui, sans-serif;
+
+  /* Set from the selected style. */
+  --tint: #fff7ed;
+  --accent: #f97316;
+  --accent2: #db2777;
+
+  --page: light-dark(color-mix(in srgb, var(--tint) 70%, white), color-mix(in srgb, var(--tint) 8%, #09090b));
+  --card: light-dark(white, #18181b);
+  --text: light-dark(#1f2937, #f4f4f5);
+  --muted: light-dark(#6b7280, #a1a1aa);
+  --line: light-dark(#e5e7eb, #3f3f46);
+
+  /* Brand colors, lightened against dark surfaces. */
+  --lit: light-dark(var(--accent), color-mix(in srgb, var(--accent), white 25%));
+  --lit2: light-dark(var(--accent2), color-mix(in srgb, var(--accent2), white 25%));
+
+  color: var(--text);
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+  transition: 0.3s;
+  transition-property: background, border-color, box-shadow, color, filter;
+}
+
+body {
+  display: grid;
+  place-items: center;
+  min-height: 100dvh;
+  margin: 0;
+  padding: 1.5rem;
+  background: var(--page);
+}
+
+/* One gap sets the rhythm; nothing else carries margins. */
+main {
+  display: grid;
+  gap: 1.5rem;
+  width: min(100%, 28rem);
+  padding: 1.75rem;
+  background: var(--card);
+  border-radius: 1.5rem;
+  box-shadow: 0 12px 40px -12px #0004;
+}
+
+.group {
+  display: grid;
+  gap: 0.5rem;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Small, quiet labels everywhere. */
+label,
+.label,
+summary {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--muted);
+}
+
+#theme {
+  padding: 0 0.25rem;
+  font-size: 1.25rem;
+  line-height: 1;
+  color: var(--muted);
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+#theme:hover {
+  color: var(--text);
+}
+
+input[type="text"],
+select {
+  width: 100%;
+  padding: 0.6rem 0.9rem;
+  font: inherit;
+  color: var(--text);
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: 0.75rem;
+  outline: none;
+}
+
+input[type="text"]:focus,
+select:focus-visible {
+  border-color: var(--lit);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--lit) 25%, transparent);
+}
+
+/* Style pills */
+#styles {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(5rem, 1fr));
+  gap: 0.5rem;
+}
+
+#styles label {
+  --lit: light-dark(var(--swatch), color-mix(in srgb, var(--swatch), white 25%));
+  --lit2: light-dark(var(--swatch2), color-mix(in srgb, var(--swatch2), white 25%));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: var(--text);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+#styles label::before {
+  content: "";
+  width: 0.7rem;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--lit), var(--lit2));
+}
+
+#styles label:has(:checked) {
+  border-color: var(--lit);
+  background: color-mix(in srgb, var(--lit) 12%, var(--card));
+}
+
+#styles label:has(:focus-visible) {
+  outline: 2px solid var(--lit);
+  outline-offset: 2px;
+}
+
+#styles input {
+  position: absolute;
+  opacity: 0;
+}
+
+/* Customize */
+summary {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  width: fit-content;
+  list-style: none;
+  cursor: pointer;
+}
+
+summary::-webkit-details-marker {
+  display: none;
+}
+
+summary::after {
+  content: "";
+  width: 0.4rem;
+  aspect-ratio: 1;
+  border: solid currentColor;
+  border-width: 0 1.5px 1.5px 0;
+  transform: translateY(-1px) rotate(45deg);
+  transition: transform 0.2s;
+}
+
+details[open] summary::after {
+  transform: translateY(1px) rotate(-135deg);
+}
+
+summary:hover {
+  color: var(--text);
+}
+
+.fields {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 0.75rem;
+  margin-top: 0.75rem;
+}
+
+.field {
+  display: grid;
+  gap: 0.25rem;
+  grid-column: span 2;
+  font-size: 0.75rem;
+}
+
+.field.wide {
+  grid-column: span 3;
+}
+
+select,
+input[type="color"] {
+  height: 2.25rem;
+  font-size: 0.875rem;
+  border-radius: 0.6rem;
+}
+
+select {
+  padding: 0 0.6rem;
+}
+
+input[type="color"] {
+  appearance: none;
+  width: 100%;
+  padding: 4px;
+  background: none;
+  border: 1px solid var(--line);
+  cursor: pointer;
+}
+
+/* Vendor pseudo-elements must be separate rules: one unknown selector voids the list. */
+input[type="color"]::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+
+input[type="color"]::-webkit-color-swatch {
+  border: 0;
+  border-radius: 0.4rem;
+}
+
+input[type="color"]::-moz-color-swatch {
+  border: 0;
+  border-radius: 0.4rem;
+}
+
+/* Preview */
+figure {
+  display: grid;
+  justify-items: center;
+  gap: 0.75rem;
+  margin: 0;
+}
+
+#code {
+  overflow: hidden;
+  border-radius: 1rem;
+  background: var(--tile, var(--tint));
+  line-height: 0;
+}
+
+#caption {
+  font: 0.75rem ui-monospace, monospace;
+  color: var(--muted);
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+
+/* Downloads */
+#downloads {
+  display: flex;
+  gap: 0.5rem;
+}
+
+#downloads button {
+  flex: 1;
+  padding: 0.7rem;
+  font: inherit;
+  font-weight: 500;
+  color: white;
+  background: linear-gradient(135deg, var(--lit), var(--lit2)) border-box;
+  border: 1px solid transparent;
+  border-radius: 0.75rem;
+  cursor: pointer;
+}
+
+#downloads button:hover {
+  filter: brightness(0.9);
+}
+
+/* SVG is the quieter option. */
+#downloads button[data-ext="svg"] {
+  flex: 0 0 auto;
+  padding-inline: 1.25rem;
+  color: var(--lit);
+  background: none;
+  border-color: var(--lit);
+}
+
+button:focus-visible {
+  outline: 2px solid var(--lit);
+  outline-offset: 2px;
+}

@@ -3,7 +3,7 @@
   "configVersion": 1,
   "workspaces": {
     "": {
-      "name": "qr-generator",
+      "name": "qr-studio",
       "dependencies": {
         "qr-code-styling": "^1.9.2",
       },

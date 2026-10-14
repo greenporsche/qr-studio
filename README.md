@@ -1,13 +1,13 @@
-# QR
+# QR Studio
 
 **Beautiful QR codes in a few seconds.**
 
 Paste a link, pick a style, and download a code with soft shapes and smooth gradients that still scans. It runs entirely in your browser, so there's nothing to sign up for and nothing is uploaded.
 
 <p align="center">
-  <img src="docs/light.png" alt="QR in light mode" width="380">
+  <img src="docs/light.png" alt="QR Studio in light mode" width="380">
   &nbsp;
-  <img src="docs/dark.png" alt="QR in dark mode" width="380">
+  <img src="docs/dark.png" alt="QR Studio in dark mode" width="380">
 </p>
 
 ## What you get
